@@ -27,6 +27,8 @@ test -z "${REMOVE_THIS_LINE+x}" || bail "Please edit your configuration file (${
 NAME=${1}
 COMMAND=${2:-view}
 
+test -z "${NAME}" && bail "Usage: ${0} name [view|edit]"
+
 case "${COMMAND}" in
 	view)
 		FILE=~/.2fa/${NAME}/.key.gpg
@@ -41,6 +43,9 @@ case "${COMMAND}" in
 		;;
 	edit)
 		bail "TODO"
+		;;
+	list)
+		find ~/.2fa/ -name \.key.gpg|rev|cut -d"/" -f2|rev
 		;;
 	*)
 		bail "Command not implemented"
