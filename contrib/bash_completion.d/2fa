@@ -1,0 +1,10 @@
+have 2fa.sh && 
+_2fa()
+{
+        local cur
+        COMPREPLY=()
+        cur=${COMP_WORDS[COMP_CWORD]}
+        COMPREPLY=($( compgen -W "$(~/bin/2fa.sh list list)" -- "$cur" ))
+}
+complete -F _2fa 2fa.sh
+
