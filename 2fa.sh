@@ -1,6 +1,7 @@
 #!/bin/bash
 
-CONFIG=~/.2fa/config.sh
+WORKDIR=~/.2fa
+CONFIG=${WORKDIR}/config.sh
 
 function bail () {
 	echo ${*}
@@ -31,7 +32,7 @@ test -z "${NAME}" && bail "Usage: ${0} name [view|edit]"
 
 case "${COMMAND}" in
 	view)
-		FILE=~/.2fa/${NAME}/.key.gpg
+		FILE=${WORKDIR}/${NAME}/.key.gpg
 		test -f ${FILE} || bail "2FA Missing for ${NAME}"
 
 		# Decrypt token
@@ -45,7 +46,7 @@ case "${COMMAND}" in
 		bail "TODO"
 		;;
 	list)
-		find ~/.2fa/ -name \.key.gpg|rev|cut -d"/" -f2|rev
+		find ${WORKDIR}/ -name \.key.gpg|rev|cut -d"/" -f2|rev
 		;;
 	*)
 		bail "Command not implemented"
