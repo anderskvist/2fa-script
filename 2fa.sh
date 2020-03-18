@@ -38,9 +38,15 @@ case "${COMMAND}" in
 		# Decrypt token
 		TOTP=$(cat ${FILE} |gpg --quiet -u ${KEYID} -r ${EMAIL} -d)
 
+		# Calculate lifespan of 2FA code
+		LIFESPAN=$((30-($(date +%S)%30)))
+
 		# Find 2FA code
+		CODE=$(oathtool -b --totp ${TOTP})
+
 		echo "2FA code for ${NAME} is:"
-		oathtool -b --totp ${TOTP}
+
+		echo "${CODE} (lifespan: ${LIFESPAN} seconds)"
 		;;
 	edit)
 		bail "TODO"
