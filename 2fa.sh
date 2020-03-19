@@ -39,7 +39,7 @@ case "${COMMAND}" in
 		TOTP=$(cat ${FILE} |gpg --quiet -u ${KEYID} -r ${EMAIL} -d)
 
 		# Calculate lifespan of 2FA code
-		LIFESPAN=$((30-($(date +%S)%30)))
+		LIFESPAN=$((30-(10#$(date +%S)%30)))
 
 		# Find 2FA code
 		CODE=$(oathtool -b --totp ${TOTP})
