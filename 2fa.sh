@@ -46,7 +46,15 @@ case "${COMMAND}" in
 
 		echo "2FA code for ${NAME} is:"
 
-		echo "${CODE} (lifespan: ${LIFESPAN} seconds)"
+		if [ ${LIFESPAN} -lt 5 ]; then
+			COLOR="\e[31m"
+		elif [ ${LIFESPAN} -lt 10 ]; then
+			COLOR="\e[93m"
+		else
+			COLOR="\e[92m"
+		fi
+
+		echo -e "${COLOR}${CODE} (lifespan: ${LIFESPAN} seconds)\e[0m"
 		;;
 	edit)
 		bail "TODO"
