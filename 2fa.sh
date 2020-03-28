@@ -55,6 +55,10 @@ case "${COMMAND}" in
 		fi
 
 		echo -e "${COLOR}${CODE} (lifespan: ${LIFESPAN} seconds)\e[0m"
+		if [ -x "$(command -v xclip)" ]; then
+			echo -n ${CODE} | xclip
+			echo "Code has been added to clipboard - use middle button or shift-insert to paste."
+		fi
 		;;
 	edit)
 		bail "TODO"
